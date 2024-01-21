@@ -5,7 +5,7 @@ import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignOut from './pages/SignOut';
 import Dashboard from './pages/Dashboard';
-import { Header } from './components';
+import { Header, FooterComp  } from './components';
 import SignUp from './pages/SignUp';
 
 function App() {
@@ -21,9 +21,11 @@ function App() {
         <Route path='/sign-out' element={<SignOut />} />
         <Route path='/dashboard' element={<Dashboard />} />
       </Routes>
+      <FooterComp  />
     </BrowserRouter>
 
     )
 }
 
 export default App
+ 
