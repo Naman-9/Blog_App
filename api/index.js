@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose, { Mongoose } from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/user.routes.js'
+import authRoutes from './routes/auth.routes.js'
 
 dotenv.config();   
 
@@ -10,10 +11,12 @@ mongoose.connect(process.env.MONGO)
 .catch((err) => console.log("Database not connected--", err));
 
 const app = express();
+app.use(express.json());
 
 app.listen(process.env.PORT,() => {
     console.log("running.....");
 })
 
 app.use('/api/user', userRoutes);
+app.use('/api/auth', authRoutes);
 
