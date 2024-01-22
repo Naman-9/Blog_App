@@ -15,14 +15,12 @@ function Dashboard() {
   return (
     <div className='flex min-h-screen flex-col md:flex-row'>
       {/* Sidebar */}
-      <div className="">
+      <div className="md:w-56">
         <DashSidebar />
       </div>
       {/* Profile Comp */}
       {tab === 'profile' && (
-        <div className="">
           <DashProfile />
-        </div>
       )}
     </div>
   );
