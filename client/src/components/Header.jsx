@@ -3,10 +3,10 @@ import { Avatar, Button, Dropdown, Navbar, TextInput } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FaMoon } from 'react-icons/fa';
-
+import { useSelector } from 'react-redux';
 
 function Header() {
-
+  const { currentUser } = useSelector((state) => state.user);
   const path = useLocation().pathname;
 
   return (
@@ -38,30 +38,45 @@ function Header() {
         <Button className="w-12 h-10 hidden sm:inline" color="gray" pill>
           <FaMoon />
         </Button>
-        <Link to='/sign-in'>
-          <Button gradientDuoTone='purpleToBlue' outline>
-            SignIn
-          </Button>
-        </Link>
-        <Navbar.Toggle/>
+        {currentUser ? (
+          <Dropdown
+            className=""
+            arrowIcon={false}
+            inline
+            label={
+              <Avatar className="" alt="user_avatar" img={currentUser.profilePicture} rounded />
+            }
+          >
+            <Dropdown.Header>
+              <span className="block text-sm truncate">@{currentUser.username}</span>
+              <span className="block text-sm font-medium truncate">@{currentUser.email}</span>
+            </Dropdown.Header>
+            <Link to={'/dashboard?tab=profile'}>
+              <Dropdown.Item>Profile</Dropdown.Item>
+            </Link>
+            <Dropdown.Divider />
+            <Dropdown.Item>SignOut</Dropdown.Item>
+          </Dropdown>
+        ) : (
+          <Link to="/sign-in">
+            <Button gradientDuoTone="purpleToBlue" outline>
+              SignIn
+            </Button>
+          </Link>
+        )}
+        <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-          <Navbar.Link active={path === '/'} as={'div'}>
-            <Link to='/'>
-              Home
-            </Link>
-          </Navbar.Link>
-          <Navbar.Link active={path === '/about'} as={'div'}>
-            <Link to='/about' >
-              About
-            </Link>
-          </Navbar.Link>
-          <Navbar.Link active={path === '/gitbub'} as={'div'}>
-            <Link to='/https://github.com/Naman-9/' >
-            GitHub
-            </Link>
-          </Navbar.Link>
-        </Navbar.Collapse>
+        <Navbar.Link active={path === '/'} as={'div'}>
+          <Link to="/">Home</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === '/about'} as={'div'}>
+          <Link to="/about">About</Link>
+        </Navbar.Link>
+        <Navbar.Link active={path === '/gitbub'} as={'div'}>
+          <Link to="/https://github.com/Naman-9/">GitHub</Link>
+        </Navbar.Link>
+      </Navbar.Collapse>
     </Navbar>
   );
 }
