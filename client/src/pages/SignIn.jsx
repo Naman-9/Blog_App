@@ -1,13 +1,16 @@
 import { Alert, Button, Label, Spinner, TextInput } from 'flowbite-react';
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice';
 
 function SignIn() {
 
+  const disptach = useDispatch();
+  
   const navigate = useNavigate();
+  const {loading, error: errorMessage} = useSelector(state => state.user)
   const [formData, setFromData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFromData({ ...formData, [e.target.id]: e.target.value.trim() });
@@ -17,31 +20,29 @@ function SignIn() {
     e.preventDefault();
 
     if ( !formData.email || !formData.password) {
-      return setErrorMessage('All feilds are required.');
+      return disptach(signInFailure('All feilds are required.'));
     }
 
     try {
-      setErrorMessage(null);
-      setLoading(true);
-      const res = await fetch('/api/auth/SignIn', {
+      disptach(signInStart());
+      const res = await fetch('/api/auth/signIn', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
 
-      if (data.success === false) setErrorMessage(data.message);
+      if (data.success === false)    disptach(signInFailure(data.message));
 
-      if(res.ok) navigate('/');
+      if(res.ok) {
+        disptach(signInSuccess(data));
+        navigate('/');
+      }
       
-      return setLoading(false);
-
     } catch (error) {
-      setLoading(false);
-      setErrorMessage(error.message);
-    }
+      disptach(signInFailure(error.message));    }
   };
-
+  
   return (
     <div className="min-h-screen mt-20">
       <div className="flex p-3 max-w-3xl flex-col md:flex-row md:items-center mx-auto gap-5">
