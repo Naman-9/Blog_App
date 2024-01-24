@@ -29,14 +29,14 @@ export const signUp = async (req, res, next) => {
 };
 
 export const signIn = async (req, res, next) => {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
 
     if (!email || !password || email === '' || password === '') {
-        return next(errorHandler(400, "All feilds are required."));
+        return next(errorHandler(400, "All feilds are required."));  
     }
 
     try {
-        const validUser = await User.findOne({ email });
+        const validUser = await User.findOne({ email }); 
 
         if (!validUser) {
             return next(errorHandler(404, "Invalid User Credentials."));
@@ -100,3 +100,5 @@ export const googleAuth = async (req, res, next) => {
         next(error);
     }
 }
+
+ 
