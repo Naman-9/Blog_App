@@ -1,4 +1,5 @@
 import { Alert, Button, Modal, ModalHeader, TextInput } from 'flowbite-react';
+import { Link, useLocation } from 'react-router-dom';
 import React, { useEffect, useRef, useState } from 'react';
 import { HiOutlineExclamationCircle, HiUpload } from 'react-icons/hi';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +30,7 @@ function DashProfile() {
   const disptach = useDispatch();
 
   const filePickerRef = useRef();
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -128,23 +129,21 @@ function DashProfile() {
     }
   };
 
-  const handleSignout = async() => {
+  const handleSignout = async () => {
     try {
       const res = await fetch('/api/user/signout', {
-        method: "POST",
-      })
+        method: 'POST',
+      });
       const data = await res.json();
-      if(!res.ok) {
-        console.log(data.message)
+      if (!res.ok) {
+        console.log(data.message);
       } else {
         disptach(signoutSuccess());
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  
+  };
 
   useEffect(() => {
     if (imageFile) {
@@ -212,9 +211,21 @@ function DashProfile() {
           onChange={handleChange}
         />
         <TextInput type="text" id="password" placeholder="password" onChange={handleChange} />
-        <Button type="submit" gradientDuoTone="purpleToBlue" outline>
-          Update
+        <Button
+          type="submit"
+          gradientDuoTone="purpleToBlue"
+          outline
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? 'Loading...' : 'Update'}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={'/create-post'}>
+            <Button type="button" gradientDuoTone="purpleToPink" className="w-full">
+              Create a Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="text-red-500 cursor-pointer flex justify-between mt-5">
         <span onClick={() => setShowModal(true)}>Delete Account</span>
