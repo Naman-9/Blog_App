@@ -31,17 +31,17 @@ function DashUsers() {
     }
   };
 
-  const handleDeletePost = async () => {
+  const handleDeleteUser = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(`/api/user/deleteuser/${userIdToDelete}/${currentUser._id}`, {
+      const res = await fetch(`/api/user/delete/${userIdToDelete}`, {
         method: 'DELETE',
       });
       const data = await res.json();
       if (!res.ok) {
         console.log(data.message);
       } else {
-        setUsers((prev) => prev.filter((post) => post._id !== postIdToBeDelete));
+        setUsers((prev) => prev.filter((user) => user._id !== userIdToDelete));
       }
     } catch (error) {
       console.log(error);
@@ -105,7 +105,7 @@ function DashUsers() {
                       className="font-medium text-red-500 hover:underline cursor-pointer"
                       onClick={() => {
                         setShowModal(true);
-                        setUserIdToDelete(post._id);
+                        setUserIdToDelete(user._id);
                       }}
                     >
                       Delete
@@ -136,7 +136,7 @@ function DashUsers() {
               Are You sure you want to delete this User?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={handleDeletePost}>
+              <Button color="failure" onClick={handleDeleteUser}>
                 Yes, I'm sure.
               </Button>
               <Button color="gray" onClick={() => setShowModal(false)}>
