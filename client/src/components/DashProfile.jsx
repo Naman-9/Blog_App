@@ -13,6 +13,7 @@ import {
   updateFailure,
   updateStart,
   updateSuccess,
+  signoutSuccess,
 } from '../redux/user/userSlice';
 
 function DashProfile() {
@@ -127,6 +128,24 @@ function DashProfile() {
     }
   };
 
+  const handleSignout = async() => {
+    try {
+      const res = await fetch('/api/user/signout', {
+        method: "POST",
+      })
+      const data = await res.json();
+      if(!res.ok) {
+        console.log(data.message)
+      } else {
+        disptach(signoutSuccess());
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  
+
   useEffect(() => {
     if (imageFile) {
       uploadImage();
@@ -199,7 +218,7 @@ function DashProfile() {
       </form>
       <div className="text-red-500 cursor-pointer flex justify-between mt-5">
         <span onClick={() => setShowModal(true)}>Delete Account</span>
-        <span>SignOut</span>
+        <span onClick={handleSignout}>SignOut</span>
       </div>
 
       {updateUserSuccess && (
