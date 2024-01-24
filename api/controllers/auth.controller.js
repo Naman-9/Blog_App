@@ -32,11 +32,11 @@ export const signIn = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password || email === '' || password === '') {
-        return next(errorHandler(400, "All feilds are required."));  
+        return next(errorHandler(400, "All feilds are required."));
     }
 
     try {
-        const validUser = await User.findOne({ email }); 
+        const validUser = await User.findOne({ email });
 
         if (!validUser) {
             return next(errorHandler(404, "Invalid User Credentials."));
@@ -49,7 +49,10 @@ export const signIn = async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            { id: validUser._id },
+            {
+                id: validUser._id,
+                isAdmin: validUser.isAdmin
+            },
             process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
@@ -74,7 +77,10 @@ export const googleAuth = async (req, res, next) => {
     try {
         const user = await User.findOne({ email });
         if (user) {
-            const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+            const token = jwt.sign({
+                id: user._id,
+                isAdmin: user.isAdmin
+            }, process.env.JWT_SECRET);
             const { password, ...rest } = user._doc;
             res.status(200).cookie('access_token', token, {
                 httpOnly: true,
@@ -89,7 +95,10 @@ export const googleAuth = async (req, res, next) => {
                 profilePicture: googlePhotoUrl
             });
             await newUser.save();
-            const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+            const token = jwt.sign({
+                id: newUser._id,
+                isAdmin: newUser.isAdmin 
+            }, process.env.JWT_SECRET);
             const { password, ...rest } = newUser._doc;
             res.status(200).cookie('access_token', token, {
                 httpOnly: true,
@@ -101,4 +110,3 @@ export const googleAuth = async (req, res, next) => {
     }
 }
 
- 
