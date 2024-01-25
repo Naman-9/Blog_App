@@ -81,6 +81,12 @@ function CommentSection({ postId }) {
     }
   };
 
+  const handleEdit = async (comment, editedContent) => {
+    setComments(
+      comments.map((c) => (c._id === comment._id ? { ...c, content: editedContent } : c)),
+    );
+  };
+
   return (
     <div className="max-w-2xl mx-auto w-full p-3">
       {currentUser ? (
@@ -106,11 +112,11 @@ function CommentSection({ postId }) {
       {currentUser && (
         <form className="border border-teal-500 rounded-md p-3 " onSubmit={handleSubmit}>
           <Textarea
-            placeholder="Add a comment..."
+            className="w-full p-2 text-gray-700 bg-gray-200 rounded-md resize-none focus:outline-none focus:bg-gray-100"
             rows="3"
             maxLength="200"
             onChange={(e) => setComment(e.target.value)}
-            value={comment}
+            value={comment.comment}
           />
           <div className="flex justify-between items-center mt-5">
             <p className="text-gray-500 text-sm">{200 - comment.length} Characters remaining.</p>
@@ -136,7 +142,7 @@ function CommentSection({ postId }) {
             </div>
           </div>
           {comments.map((comment) => (
-            <Comment key={comment._id} comment={comment} onLike={handleLike} />
+            <Comment key={comment._id} comment={comment} onLike={handleLike} onEdit={handleEdit}/>
           ))}
         </>
       )}
