@@ -10,4 +10,4 @@ router.put('/update/:postId/:userId', verifyToken, updatePost);
 router.delete('/deletepost/:postId/:userId', verifyToken, deletePost);
 
 export default router;  
-
+ 
