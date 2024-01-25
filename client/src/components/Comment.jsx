@@ -4,7 +4,7 @@ import { FaThumbsUp } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 import { Button, Textarea } from 'flowbite-react';
 
-function Comment({ comment, onLike, onEdit }) {
+function Comment({ comment, onLike, onEdit, onDelete }) {
   const currentUser = useSelector((state) => state.user);
   const [isEditing, setIsEditing] = useState(false);
   const [user, setUser] = useState({});
@@ -32,24 +32,23 @@ function Comment({ comment, onLike, onEdit }) {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`/api/comment/editComment/${comment._id}`,{
-        method: "PUT",
+      const res = await fetch(`/api/comment/editComment/${comment._id}`, {
+        method: 'PUT',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          content: editedContent
-        })
+          content: editedContent,
+        }),
       });
-      if(res.ok) {
+      if (res.ok) {
         setIsEditing(false);
         onEdit(comment, editedContent);
       }
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
 
   return (
     <div className="flex p-4 border-b dark:border-gray-600 text-sm">
@@ -77,8 +76,18 @@ function Comment({ comment, onLike, onEdit }) {
               value={editedContent}
             />
             <div className="flex justify-end gap-2 text-sm">
-              <Button type='button' size='sm' gradientDuoTone='purpleToBlue' onClick={handelSave}>Save</Button>
-              <Button type='button' size='sm' gradientDuoTone='purpleToBlue' outline onClick={() => setIsEditing(false)}>Cancel</Button>
+              <Button type="button" size="sm" gradientDuoTone="purpleToBlue" onClick={handelSave}>
+                Save
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                gradientDuoTone="purpleToBlue"
+                outline
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </Button>
             </div>
           </>
         ) : (
@@ -99,13 +108,23 @@ function Comment({ comment, onLike, onEdit }) {
                   comment.numberOfLikes + ' ' + (comment.numberOfLikes === 1 ? 'Like' : 'Likes')}
               </p>
               {currentUser && (currentUser._id === comment.userId || currentUser.isAdmin) && (
-                <button
-                  type="button"
-                  className="text-gray-400 hover:text-blue-500"
-                  onClick={handleEdit}
-                >
-                  Edit
-                </button>
+                <>
+                  <button
+                    type="button"
+                    className="text-gray-400 hover:text-blue-500"
+                    onClick={handleEdit}
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    type="button"
+                    className="text-gray-400 hover:text-red-500"
+                    onClick={() => onDelete(comment._id)}
+                  >
+                    Delete
+                  </button>
+                </>
               )}
             </div>
           </>
