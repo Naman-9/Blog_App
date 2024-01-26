@@ -37,6 +37,7 @@ function Home() {
               <div className="flex flex-wrap gap-4 ">
                 {posts.map((post) => {
                   <PostCard key={post._id} post={post} />
+                  
                 })}
               </div>
               <Link to={'/search'} className='text-lg text-teal-500 hover:underline text-center'>
