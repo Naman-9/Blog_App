@@ -9,5 +9,5 @@ router.post('/create', verifyToken, createPost);
 router.put('/update/:postId/:userId', verifyToken, updatePost);
 router.delete('/deletepost/:postId/:userId', verifyToken, deletePost);
 
-export default router;  
+export default router;    
  

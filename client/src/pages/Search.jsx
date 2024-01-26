@@ -141,7 +141,7 @@ function Search() {
         <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5">
           Posts Results:
         </h1>
-        <div className="p-7 flex flex-col md:flex-wrap gap-4 items-center">
+        <div className="p-7 flex flex-col sm:flex-row md:flex-wrap gap-4 items-center">
           {!loading && posts.length === 0 && (
             <p className="text-xl text-gray-500">No Posts Found.</p>
           )}

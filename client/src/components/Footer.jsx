@@ -25,10 +25,10 @@ function FooterComp() {
               <Footer.Title title="About" />
               <Footer.LinkGroup col>
                 <Footer.Link href="/" target="_blank" rel="noopener noreferrer">
-                  Aboutlink
+                  Project's
                 </Footer.Link>
                 <Footer.Link href="/" rel="noopener noreferrer">
-                  Aboutlink
+                  About
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -36,10 +36,10 @@ function FooterComp() {
               <Footer.Title title="Follow us" />
               <Footer.LinkGroup col>
                 <Footer.Link href="/" rel="noopener noreferrer">
-                  Aboutlink
+                  Discord
                 </Footer.Link>
                 <Footer.Link href="/" rel="noopener noreferrer">
-                  Aboutlink
+                  Twitter
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
@@ -47,10 +47,10 @@ function FooterComp() {
               <Footer.Title title="Legal" />
               <Footer.LinkGroup col>
                 <Footer.Link href="#" rel="noopener noreferrer">
-                  Aboutlink
+                  Privacy Policy
                 </Footer.Link>
                 <Footer.Link href="#" rel="noopener noreferrer">
-                  Aboutlink
+                  Terms and Conditions
                 </Footer.Link>
               </Footer.LinkGroup>
             </div>
