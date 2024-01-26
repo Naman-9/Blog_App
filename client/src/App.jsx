@@ -17,7 +17,7 @@ import ScrollToTop from './components/ScrollToTop';
 function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop>
+      <ScrollToTop />
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -37,7 +37,6 @@ function App() {
           <Route path="/post/:postSlug" element={<PostPage />} />
         </Routes>
         <FooterComp />
-      </ScrollToTop>
     </BrowserRouter>
   );
 }
