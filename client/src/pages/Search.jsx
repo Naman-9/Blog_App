@@ -1,7 +1,7 @@
 import { Button, Select, TextInput } from 'flowbite-react';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import PostCard from './PostCard';
+import PostCard from '../components/PostCard';
 
 function Search() {
   const [sideBarData, setSideBarData] = useState({
@@ -18,10 +18,9 @@ function Search() {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const searchTermFromUrl = urlParams.get('SearchTerm');
+    const searchTermFromUrl = urlParams.get('searchTerm');
     const sortFromUrl = urlParams.get('sort');
     const categoryFromUrl = urlParams.get('category');
-
     if (searchTermFromUrl || sortFromUrl || categoryFromUrl) {
       setSideBarData({
         ...sideBarData,
@@ -31,7 +30,7 @@ function Search() {
       });
     }
 
-    const fetchPost = async () => {
+    const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/post/getposts?${searchQuery}`);
@@ -40,7 +39,7 @@ function Search() {
         return;
       }
       if (res.ok) {
-        const data = res.json();
+        const data = await res.json();
         setPosts(data.posts);
         setLoading(false);
         if (data.posts.length === 9) {
@@ -50,9 +49,10 @@ function Search() {
         }
       }
     };
-
-    fetchPost();
+    fetchPosts();
   }, [location.search]);
+
+
 
   const handleChange = (e) => {
     if (e.target.id === 'searchTerm') {
@@ -70,9 +70,8 @@ function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     const urlParams = new URLSearchParams(location.search);
-    urlParams.set('SearchTerm', sideBarData.searchTerm);
+    urlParams.set('searchTerm', sideBarData.searchTerm);
     urlParams.set('sort', sideBarData.sort);
     urlParams.set('category', sideBarData.category);
     const searchQuery = urlParams.toString();
@@ -132,7 +131,7 @@ function Search() {
               <option value="javascript">Javascript</option>
             </Select>
           </div>
-          <Button type="submit" outline gradientDuoTone="purleToPink">
+          <Button type="submit" outline gradientDuoTone="purpleToPink">
             Apply Filters
           </Button>
         </form>
@@ -142,7 +141,7 @@ function Search() {
         <h1 className="text-3xl font-semibold sm:border-b border-gray-500 p-3 mt-5">
           Posts Results:
         </h1>
-        <div className="p-7 flex flex-wrap gap-4">
+        <div className="p-7 flex flex-col md:flex-wrap gap-4 items-center">
           {!loading && posts.length === 0 && (
             <p className="text-xl text-gray-500">No Posts Found.</p>
           )}

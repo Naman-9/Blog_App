@@ -99,7 +99,7 @@ function DashPosts() {
                   <Table.Cell>
                     <Link
                       className="font-medium text-gray-900 dark:text-white"
-                      to={`/post/${post.title}`}
+                      to={`/post/${post.slug}`}
                     >
                       {post.title}
                     </Link>

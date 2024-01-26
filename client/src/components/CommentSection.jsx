@@ -6,6 +6,7 @@ import Comment from './Comment';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 
 function CommentSection({ postId }) {
+
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [comment, setComment] = useState('');
@@ -45,7 +46,7 @@ function CommentSection({ postId }) {
       try {
         const res = await fetch(`/api/comment/getPostComments/${postId}`);
         if (res.ok) {
-          const data = res.json();
+          const data = await res.json();
           setComments(data);
         }
       } catch (error) {
@@ -61,29 +62,28 @@ function CommentSection({ postId }) {
         navigate('/sign-in');
         return;
       }
-
       const res = await fetch(`/api/comment/likeComment/${commentId}`, {
         method: 'PUT',
       });
       if (res.ok) {
         const data = await res.json();
         setComments(
-          comments.map((comment) => {
+          comments.map((comment) =>
             comment._id === commentId
               ? {
                   ...comment,
-                  like: data.likes,
+                  likes: data.likes,
                   numberOfLikes: data.likes.length,
                 }
-              : comment;
-          }),
+              : comment
+          )
         );
       }
     } catch (error) {
       console.log(error.message);
     }
   };
-
+  
   const handleEdit = async (comment, editedContent) => {
     setComments(
       comments.map((c) => (c._id === comment._id ? { ...c, content: editedContent } : c)),
@@ -163,7 +163,7 @@ function CommentSection({ postId }) {
               <p>{comments.length}</p>
             </div>
           </div>
-          {comments.map((comment) => (
+          {comments?.map((comment) => (
             <Comment
               key={comment._id}
               comment={comment}

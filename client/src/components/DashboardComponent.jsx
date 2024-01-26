@@ -37,8 +37,8 @@ function DashboardComponent() {
         const data = await res.json();
         if (res.ok) {
           setPosts(data.posts);
-          setTotalPosts(data.totalposts);
-          setLastMonthPosts(data.lastMonthPosts);
+          setTotalPosts(data.totalPosts);
+          setLastMonthPosts(data.lastMonthsPosts);
         }
       } catch (error) {
         console.log(error.message);

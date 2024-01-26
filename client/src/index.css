@@ -9,43 +9,132 @@ body{
 .ql-editor{
     font-size: 1.05rem;
 }
-
-.post-content p{
-    margin-bottom: 0.5rem;
+/* Content styling */
+.post-content {
+    line-height: 1.6;
 }
 
-.post-content h1{
-    font-size: 1.5rem;
+.post-content p {
+    margin-bottom: 1rem;
+}
+
+.post-content h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Roboto', sans-serif;
+    margin: 2rem 0;
+    color: #333; /* Adjust color as needed */
+}
+
+.post-content h2 {
+    font-size: 2rem;
     font-weight: 600;
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 1.5rem 0;
+    color: #333; /* Adjust color as needed */
 }
 
-
-.post-content h2{
-    font-size: 1.4rem;
-    font-weight: 600;
-    font-family: sans-serif;
-    margin: 1.5rem 0;
-}
-
-.post-content a{
-    color: rgb(73, 149, 199);
+.post-content a {
+    color: #007BFF; /* Adjust link color */
     text-decoration: none;
-
 }
 
-
-.post-content a:hover{
+.post-content a:hover {
     text-decoration: underline;
-
 }
 
 .dark .post-content a {
-    color: rgb(236, 74, 88);
-
+    color: #dc3545; /* Adjust link color for dark mode */
 }
 
+/* Code block styling */
+.post-content pre {
+    background-color: #f8f9fa; /* Adjust code block background color */
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+}
 
+.post-content code {
+    font-family: 'Fira Code', monospace; /* Use a monospace font for code */
+    font-size: 1rem;
+    color: #333; /* Adjust code text color */
+}
+
+/* Inline code styling */
+.post-content p code {
+    background-color: #f8f9fa; /* Adjust inline code background color */
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: 'Fira Code', monospace; /* Use a monospace font for inline code */
+    font-size: 0.9rem;
+    color: #333; /* Adjust inline code text color */
+}
+
+/* Heading styling */
+.post-content h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    margin: 1.2rem 0;
+    color: #333; /* Adjust color as needed */
+}
+
+.post-content h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: 'Roboto', sans-serif;
+    margin: 1rem 0;
+    color: #333; /* Adjust color as needed */
+}
+
+/* Link styling */
+.post-content a {
+    color: #007BFF; /* Adjust link color */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.post-content a:hover {
+    text-decoration: underline;
+    color: #0056b3; /* Adjust link hover color */
+}
+
+.dark .post-content a {
+    color: #dc3545; /* Adjust link color for dark mode */
+}
+
+/* Button styling */
+.post-content button {
+    background-color: #007BFF; /* Adjust button background color */
+    color: #fff; /* Adjust button text color */
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.post-content button:hover {
+    background-color: #0056b3; /* Adjust button hover background color */
+}
+
+/* Additional styles for inline code within headings */
+.post-content h1 code,
+.post-content h2 code,
+.post-content h3 code,
+.post-content h4 code {
+    background-color: transparent; /* Remove background color from code in headings */
+}
+
+/* Additional styles for strong and emphasized text */
+.post-content strong {
+    font-weight: 700;
+}
+
+.post-content em {
+    font-style: italic;
+}
 
 

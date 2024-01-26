@@ -3,9 +3,10 @@ import { Link, useParams } from 'react-router-dom';
 import { Button, Spinner } from 'flowbite-react';
 import CallToAction from '../components/CallToAction';
 import CommentSection from '../components/CommentSection';
-import PostCard from './PostCard';
+import PostCard from '../components/PostCard';
 
 function PostPage() {
+
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -21,9 +22,11 @@ function PostPage() {
         if (!res.ok) {
           setError(true);
           setLoading(false);
+          return;
         }
         if (res.ok) {
           setPost(data.posts[0]);
+          console.log(data.posts[0])
           setLoading(false);
           setError(false);
         }
@@ -74,7 +77,7 @@ function PostPage() {
       />
       <div className="flex justify-between p-3 border-b border-slate-500 mx-auto w-full max-w-2xl text-xs">
         <span>{post && new Date(post.createdAt).toLocaleDateString()}</span>
-        <span className="italic">{post && (post.content.length / 1000).toFixed(0)} mins read</span>
+        <span className="italic">{post && (post.content?.length / 1000).toFixed(0)} mins read</span>
       </div>
       <div
         className="p-3 max-w-2xl mx-auto w-full post-content"
@@ -88,7 +91,7 @@ function PostPage() {
 
       <div className="flex flex-col justify-center items-center mb-5">
         <h1 className="text-xl mt-5 ">Recent Articles</h1>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex md:flex-wrap gap-2 justify-center">
           {
             recentPosts && 
               recentPosts.map((post) => (

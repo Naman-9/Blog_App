@@ -34,7 +34,7 @@ function DashComments() {
   const handleDeleteComments = async () => {
     setShowModal(false);
     try {
-      const res = await fetch(`/api/comments/deleteComment/${commentIdToDelete}`, {
+      const res = await fetch(`/api/comment/deleteComment/${commentIdToDelete}`, {
         method: 'DELETE',
       });
       const data = await res.json();
@@ -135,7 +135,7 @@ function DashComments() {
               Are You sure you want to delete this comment?
             </h3>
             <div className="flex justify-center gap-4">
-              <Button color="failure" onClick={handleDeleteComments()}>
+              <Button color="failure" onClick={() => handleDeleteComments()}>
                 Yes, I'm sure.
               </Button>
               <Button color="gray" onClick={() => setShowModal(false)}>

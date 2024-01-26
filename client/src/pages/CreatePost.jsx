@@ -90,7 +90,7 @@ function CreatePost() {
           />
           <Select onChange={(e) => setFormData({ ...formData, category: e.target.value })}>
             <option value="uncategorized">Select a Category</option>
-            <option value="javasscript">Javascript</option>
+            <option value="javascript">Javascript</option>
             <option value="reactjs">Reactjs</option>
             <option value="nextjs">Nextjs</option>
           </Select>
